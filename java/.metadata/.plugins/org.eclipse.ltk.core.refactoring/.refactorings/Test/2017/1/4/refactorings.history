@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.example.exterra.FazzyDAO.java&apos; to &apos;FuzzyDAO.java&apos;&#x0D;&#x0A;- Original project: &apos;Test&apos;&#x0D;&#x0A;- Original element: &apos;com.example.exterra.FazzyDAO.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.example.exterra.FuzzyDAO.java&apos;" description="Rename compilation unit &apos;FazzyDAO.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;com.example.exterra{FazzyDAO.java" name="FuzzyDAO.java" references="false" stamp="1485247746301" version="1.0"/>
+</session>

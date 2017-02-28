@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 // function prototype
-void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_HighZero); // (fuzzy's degree, )
+void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_HighZero);
 void fuzzyPrint(char* _str, double* _arrFuzzyValue, int _numLength, int _line); // fuzzy print function
 
 // main
@@ -27,14 +27,14 @@ int main(){
 // function of bubble sort
 void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_HighZero){
     // general variables
-    int* num = _num;
+    int* num = _num; // array parameter to pointer variable
     int i, j, temp; // bubble sort and iteration variables
     int sum_Entire = 0; // array's sum
     double avg_Entire = 0.0; // array's avg
-    double avgRate = _avgRate;
+    double avgRate = _avgRate; // low and high rate = average's start and end point
 
     // data variables
-    int numLength = _numLength;
+    int numLength = _numLength; // array's length
     int num_High; // array highest number, high 1.0's number
     int num_Low; // array lowest number, low 1.0's number
     int num_LowLast = 0; // low last in an array

@@ -16,7 +16,7 @@ void fuzzyPrint(char* _str, double* _arrFuzzyValue, int _numLength, int _line); 
 // main
 int main(){
     // fuzzy data and data length
-    int num[] = {167, 484, 681, 486, 351, 198, 189, 471, 648, 424, 998}; // initialize value
+    int num[] = {167, 484, 681, 486, 715, 351, 198, 189, 471, 648, 424, 843, 998}; // initialize value
     int numLength = sizeof(num) / sizeof(num[0]);
 
     // execute functions
@@ -47,10 +47,10 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
 
     // fuzzy measurement variables
     int degree = _degree;
-    double fuzzyLow = 0.0;
-    double fuzzyHigh = 0.0;
-    double fuzzyLowToAvg = 0.0;
-    double fuzzyAvgToHigh = 0.0;
+    double fuzzyLow = 0.0; // low fuzzy variable
+    double fuzzyHigh = 0.0; // high fuzzy variable
+    double fuzzyLowToAvg = 0.0; // avg-up fuzzy variable
+    double fuzzyAvgToHigh = 0.0; // avg-down fuzzy variable
     double fuzzy_AvgInLow = avgRate;
     double fuzzy_AvgInHigh = avgRate;
 
@@ -83,6 +83,7 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
         }
     }
 
+    // bubble sort
     for (i = 0; i < numLength; i++) {
         for (j = 0; j < numLength - 1; j++) {
             if (num[j] > num[j+1]) {
@@ -107,14 +108,12 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
     }
     printf("\n\n"); // carriage return
 
-    // num[]'s average
+    // num[]'s sum and average
     for(i = 0; i < numLength; i++){
         sum_Entire += num[i];
     } // iteration of number array adding
 
     avg_Entire = (double)sum_Entire / (double)numLength; // number array average method
-    printf("number's sum :\t\t%d\n", sum_Entire);
-    printf("number's avg :\t\t%.2lf\n\n", avg_Entire); //.2 = decimal point
 
 
 
@@ -177,6 +176,19 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
     // num_LowZero : Low 집단 fuzzy 0.0일때의 데이터
     // num_Low : 전체 집단 중 가장 작은 데이터
 
+    // fuzzy point number print
+    printf("\n");
+    printf("number's sum :\t\t%d\n", sum_Entire);
+    printf("number's avg :\t\t%.2lf\n\n", avg_Entire);
+
+    printf("number's low :\t\t%d\n", num_Low);
+    printf("number's avg 0.0 start: %.2lf\n", num_FuzzyAvgInLow);
+    printf("number's low 0.0 :\t%d\n", num_LowZero);
+    printf("number's avg 1.0 :\t%.2lf\n", avg_FuzzyAvg);
+    printf("number's high 0.0 :\t%d\n", num_HighZero);
+    printf("number's avg 0.0 end:\t%.2lf\n", num_FuzzyAvgInHigh);
+    printf("number's high :\t\t%d\n\n", num_High);
+
     printf("fuzzy decision:\t\t");
     for (i = 0; i < numLength; i++) {
         if (num[i] > num_FuzzyAvgInHigh) {
@@ -195,6 +207,7 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
 }
 
 void fuzzyPrint(char* _str, double* _arrFuzzyValue, int _numLength, int _line){
+    // fuzzy print function
     int i;
 
     printf("%s", _str);

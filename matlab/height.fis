@@ -15,7 +15,7 @@ DefuzzMethod='centroid'
 Name='LOW'
 Range=[150 200]
 NumMFs=1
-MF1='LOW':'trapmf',[150 150 159 175]
+MF1='LOW':'trapmf',[150 150 155 175]
 
 [Input2]
 Name='AVG'
@@ -27,17 +27,17 @@ MF1='AVG':'trimf',[167 177 187]
 Name='HIGH'
 Range=[150 200]
 NumMFs=1
-MF1='HIGH]':'trimf',[180 200 220]
+MF1='HIGH]':'trimf',[180 200 200]
 
 [Output1]
-Name='output1'
-Range=[0 30]
+Name='Fuzzy'
+Range=[150 200]
 NumMFs=5
-MF1='Small':'trimf',[0 5 10]
-MF2='Medium':'trimf',[10 15 20]
-MF3='TALL':'trimf',[20 25 30]
-MF4='AverageTall':'trimf',[15 20 25]
-MF5='AverageSmall':'trimf',[5 10 15]
+MF1='Small':'trapmf',[150 150 159 166]
+MF2='Medium':'trimf',[166.7 175 183.3]
+MF3='TALL':'trapmf',[180 190 200 200]
+MF4='AverageTall':'trimf',[175 183.3 191.7]
+MF5='AverageSmall':'trimf',[158.3 166.7 175]
 
 [Rules]
 1 0 0, 1 (1) : 1

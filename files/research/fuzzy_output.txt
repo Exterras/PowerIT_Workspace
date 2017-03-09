@@ -1,0 +1,22 @@
+initialize value :      167 484 681 486 715 351 198 189 471 648 424 843 998
+after B.S. (Asc.):      167 189 198 351 424 471 484 486 648 681 715 843 998
+
+Low Fuzzy :             1.00 0.91 0.87 0.21 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+High Fuzzy :            0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.12 0.20 0.29 0.61 1.00
+LowToAvg Fuzzy :        0.00 0.00 0.00 0.26 0.55 0.73 0.78 0.79 VOID VOID VOID VOID VOID
+AvgToHigh Fuzzy :       VOID VOID VOID VOID VOID VOID VOID VOID 0.59 0.46 0.33 0.00 0.00
+
+number's sum :          6655
+number's avg :          511.92
+
+number's low :          167
+number's avg 0.0 start: 283.50
+number's low 0.0 :      400
+number's avg 1.0 :      541.25
+number's high 0.0 :     600
+number's avg 0.0 end:   799.00
+number's high :         998
+
+fuzzy decision:         SMAL SMAL SMAL AVSL AVRG AVRG AVRG AVRG ATAL ATAL ATAL TALL TALL
+Process returned 0 (0x0)   execution time : 0.060 s
+Press any key to continue.

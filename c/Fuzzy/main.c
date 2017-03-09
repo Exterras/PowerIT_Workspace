@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 // function prototype
-void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_HighZero);
+void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_LowZero, int _num_HighZero);
 void fuzzyPrint(char* _str, double* _arrFuzzyValue, int _numLength, int _line); // fuzzy print function
 
 // main
@@ -20,12 +20,12 @@ int main(){
     int numLength = sizeof(num) / sizeof(num[0]);
 
     // execute functions
-    fuzzyOn(num, numLength, 100, 0.5, 600);
+    fuzzyOn(num, numLength, 100, 0.5, 400, 600);
     return 0;
 }
 
 // function of bubble sort
-void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_HighZero){
+void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_LowZero, int _num_HighZero){
     // general variables
     int* num = _num; // array parameter to pointer variable
     int i, j, temp; // bubble sort and iteration variables
@@ -35,14 +35,17 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
 
     // data variables
     int numLength = _numLength; // array's length
+
+    // Low 0.0에 해당하는 값을 매개변수로 받았을 때 이 변수는 쓰여지지 않는다.
+    // int num_LowLast = 0; // low last in an array,
+
     int num_High; // array highest number, high 1.0's number
     int num_Low; // array lowest number, low 1.0's number
-    int num_LowLast = 0; // low last in an array
     int num_HighZero = _num_HighZero; // high 0.0's number
-    int num_LowZero = 0; // // low 0.0's number
+    int num_LowZero = _num_LowZero; // // low 0.0's number
 
     double num_FuzzyAvgInLow = 0.0; // avg 0.0's number -> 1.0
-    double num_FuzzyAvgInHigh = 0.0; // 1.0 -> avg 0.0's number
+    double num_FuzzyAvgInHigh = 0.0; // 1.0 -> avg 0.0's number// Low 0.0에 해당하는 값을 매개변수로 받았을 때 이 변수는 쓰여지지 않는다.
     double avg_FuzzyAvg = 0.0; // avg 1.0's number
 
     // fuzzy measurement variables
@@ -102,11 +105,11 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
     printf("\n"); // carriage return
 
     // after bubble sort (Descending)
-    printf("after B.S. (Desc.):\t");
-    for(i = numLength-1 ; i >= 0; i--){
-        printf("%d ",num[i]);
-    }
-    printf("\n\n"); // carriage return
+    //printf("after B.S. (Desc.):\t");
+    //for(i = numLength-1 ; i >= 0; i--){
+    //    printf("%d ",num[i]);
+  //  }
+    printf("\n"); // carriage return
 
     // num[]'s sum and average
     for(i = 0; i < numLength; i++){
@@ -119,18 +122,21 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
 
     /* ----- calculation of fuzzy ----- */
 
-    // low fuzzy 중 가장 키가 큰 변수를 골라내는 과정
-    for (i = 0; i < numLength; i++) {
-        if (num[i] < avg_Entire) {
-            num_LowLast = num[i];
-        }
-    }
+   // low fuzzy 중 데이터가 가장 큰 변수를 골라내는 과정,
+   // Low 0.0에 해당하는 값을 매개변수로 받았을 때 이 과정은 의미가 없다.
+   // for (i = 0; i < numLength; i++) {
+   //     if (num[i] < avg_Entire) {
+   //         num_LowLast = num[i];
+   //     }
+   // }
 
     // 사용자가 설정한 degree 나누기 각 소속 집단별로 최대값과 최소값를 구하여 그 차액 -> 전체 집단에서 한 눈금이 차지하는 비율
-    fuzzyLow = (double)degree / (double)(num_LowLast - num_Low);
+   // fuzzyLow = (double)degree / (double)(num_LowLast - num_Low); // Low 0.0에 해당하는 값을 매개변수로 받았을 때 이 과정은 의미가 없다.
+    fuzzyLow = (double)degree / (double)(num_LowZero - num_Low);
     fuzzyHigh = (double)degree / (double)(num_High - num_HighZero);
 
-    num_FuzzyAvgInLow = (double)num_LowLast - ((fuzzy_AvgInLow * degree) / fuzzyLow);
+    // num_FuzzyAvgInLow = (double)num_LowLast - ((fuzzy_AvgInLow * degree) / fuzzyLow); // Low 0.0에 해당하는 값을 매개변수로 받았을 때 이 과정은 의미가 없다.
+    num_FuzzyAvgInLow = (double)num_LowZero - ((fuzzy_AvgInLow * degree) / fuzzyLow);
     // Low 집단 중 Average 집단에 소속될 수 있는 최소한의 데이터
     // low 집단 중 가장 큰 데이터  - (low 집단 중 평균으로 속할 수 있는 소속도 * degree) / low 집단전체 한 눈금이 차지하는 비율
 
@@ -146,7 +152,9 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
     for (i = 0; i < numLength; i++) {
         // 각 집단들의 퍼지 논리 (0~1 사이의 실수값) = (눈금자 * (최대범위 - 최소범위)) / degree
         // Fuzzy 값의 범위 = 0.0 ~ 1.0
-        arr_FuzzyLow[i] = (fuzzyLow * (double)(num_LowLast - num[i])) / (double)degree;
+        // arr_FuzzyLow[i] = (fuzzyLow * (double)(num_LowLast - num[i])) / (double)degree;
+        // 바로 앞 줄의 과정은 Low 0.0에 해당하는 값을 매개변수로 받았을 때 이 과정은 의미가 없다.
+        arr_FuzzyLow[i] = (fuzzyLow * (double)(num_LowZero - num[i])) / (double)degree;
         arr_FuzzHigh[i] = (fuzzyHigh * (double)(num[i] - num_HighZero)) / (double)degree;
         arr_FuzzyLowToAvg[i] = (fuzzyLowToAvg * (double)(num[i] - num_FuzzyAvgInLow)) / (double)degree;
         arr_FuzzyAvgToHigh[i] = (fuzzyAvgToHigh * (double)(num_FuzzyAvgInHigh - num[i])) / (double)degree;
@@ -159,6 +167,7 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
             break;
         }
     } // low fuzzy가 0.0인 데이터를 num_LowZero에 넣고 break
+
     fuzzyPrint("Low Fuzzy :\t\t", arr_FuzzyLow, numLength, 1);
 
     // fuzzy print - high
@@ -192,14 +201,19 @@ void fuzzyOn(int *_num, int _numLength, int _degree, double _avgRate, int _num_H
     printf("fuzzy decision:\t\t");
     for (i = 0; i < numLength; i++) {
         if (num[i] > num_FuzzyAvgInHigh) {
+            // 전체 데이터가 High 집단 중 Average 집단에 소속될 수 있는 최대한의 데이터보다 클 경우 '크다' 라고 표현한다.
             printf("TALL ");
         } else if (num[i] >= num_HighZero && num[i] < num_FuzzyAvgInHigh) {
+            // 전체 데이터가 High 집단 fuzzy 0.0일때의 데이터보다 같거나 크고 num_FuzzyAvgInHigh보다 작을 경우 '평균보다 크다' 라고 표현한다.
             printf("ATAL ");
         } else if (num[i] >= num_LowZero && num[i] < num_HighZero) {
+            // 전체 데이터가 Low 집단 fuzzy 0.0일때의 데이터보다 같거나 크고 num_HighZero보다 작을 경우 '평균이다' 라고 표현한다.
             printf("AVRG ");
         } else if (num[i] >= num_FuzzyAvgInLow && num[i] < num_LowZero) {
+            // 전체 데이터가 Low 집단 중 Average 집단에 소속될 수 있는 최소한의 데이터보다 같거나 크고 num_LowZero보다 작을 경우 '평균보다 작다' 라고 표현한다.
             printf("AVSL ");
         } else if (num[i] >= num_Low) {
+            // 전체 데이터가 전체 집단 중 가장 작은 데이터보다 같거나 클 경우 '작다' 라고 표현한다.
             printf("SMAL ");
         }
     }
